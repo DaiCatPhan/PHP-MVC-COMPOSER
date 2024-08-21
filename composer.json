@@ -1,0 +1,17 @@
+{
+    "name": "acer/php-mvc",
+    "autoload": {
+        "psr-4": {
+            "Acer\\PhpMvc\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Phan Dai Cat",
+            "email": "phandaicat12032002@gmail.com"
+        }
+    ],
+    "require": {
+        "bramus/router": "^1.6"
+    }
+}
