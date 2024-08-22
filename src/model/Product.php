@@ -41,9 +41,41 @@ class Product extends ConnectDB
     public function deleteProduct($id)
     {
         try {
-            $sql = "DELETE FROM $this->tableName WHERE id = ?";
-            $stml = $this->conn->prepare($sql);
-            $stml->execute([$id]);
+            $sql = "DELETE FROM {$this->tableName} WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public function updateProduct($id, $name, $des)
+    {
+        try {
+            $sql = "UPDATE {$this->tableName} SET name = :name, des = :des WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+            $stmt->bindParam(':des', $des, PDO::PARAM_STR);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public function create($name, $des)
+    {
+        try {
+            $sql = "INSERT INTO $this->tableName (name, des) VALUES (:name, :des)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+            $stmt->bindParam(':des', $des, PDO::PARAM_STR);
+            $stmt->execute();
             return true;
         } catch (PDOException $e) {
             error_log($e->getMessage());

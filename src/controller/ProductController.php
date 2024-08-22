@@ -9,8 +9,6 @@ class ProductController
         $this->modelProduct = new Product();
     }
 
-
-
     public function home()
     {
         $listProduct = $this->modelProduct->getAllProduct();
@@ -28,25 +26,26 @@ class ProductController
 
     public function showUpdateForm($id)
     {
-        // $product = (new Product())->getProductDetail($id);
-        // require_once './views/updateProduct.php';  
+        $product = $this->modelProduct->getProductDetail($id);
+        require_once './src/view/product/updateProduct.php';
     }
 
     public function updateProduct($id)
     {
 
-        // $name = $_POST['name'];
-        // $description = $_POST['description'];
+        $name = $_POST['name'];
+        $des = $_POST['des'];
 
 
-        // $productModel = new Product();
-        // $success = $productModel->updateProduct($id, $name, $description);
 
-        // if ($success) {
-        //     header('Location: /product'); // Chuyển hướng đến danh sách sản phẩm
-        // } else {
-        //     echo "Cập nhật không thành công";
-        // }
+
+        $success = $this->modelProduct->updateProduct($id, $name, $des);
+
+        if ($success) {
+            header('Location: /php/php-mvc/'); // Chuyển hướng đến danh sách sản phẩm
+        } else {
+            echo "Cập nhật không thành công";
+        }
     }
 
     public function delete($id)
@@ -58,5 +57,23 @@ class ProductController
         } else {
             echo "Xóa không thành công";
         }
+    }
+
+    public function create()
+    {
+        $name = $_POST['name'];
+        $des = $_POST['des'];
+        $success = $this->modelProduct->create($name, $des);
+
+        if ($success) {
+            header('Location: /php/php-mvc/');
+        } else {
+            echo "Xóa không thành công";
+        }
+    }
+
+    public function createPage()
+    {
+        require_once './src/view/product/createProduct.php';
     }
 }

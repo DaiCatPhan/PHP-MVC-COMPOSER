@@ -14,6 +14,9 @@
 
 <body>
     <h1>Đây là trang chủ</h1>
+    <div>
+        <a href="/php/php-mvc/product/createPage">Tạo san pham moi</a>
+    </div>
 
 
     <div class="w-50 m-auto">
